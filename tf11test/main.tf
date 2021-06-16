@@ -13,6 +13,14 @@ terraform {
   }
 }
 
+data terraform_remote_state tfv1 {
+  backend = "local"
+
+  config = {
+    path = "C:/Code/tfv1test/terraform.tfstate"
+  }
+}
+
 provider "random" {}
 
 resource "random_integer" "integer" {
@@ -22,4 +30,8 @@ resource "random_integer" "integer" {
 
 output "tfv11output" {
   value = "tfv11-${random_integer.integer.result}"
+}
+
+output readstatefile {
+    value = "${data.terraform_remote_state.tfv1.tfv1output}"
 }
